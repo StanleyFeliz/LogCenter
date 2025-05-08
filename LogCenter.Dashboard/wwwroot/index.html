@@ -10,6 +10,18 @@
     <link rel="stylesheet" href="css/app.css" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link href="LogCenter.Dashboard.styles.css" rel="stylesheet" />
+    
+    <!-- Load basic interop script first to ensure functions are available -->
+    <script src="js/blazor-interop.js"></script>
+    
+    <!-- Error handling for Chart.js loading -->
+    <script>
+        window.chartJsLoadError = false;
+        function handleChartJsError() {
+            console.error("Chart.js failed to load");
+            window.chartJsLoadError = true;
+        }
+    </script>
 </head>
 
 <body>
@@ -26,6 +38,24 @@
         <a href="." class="reload">Reload</a>
         <span class="dismiss">🗙</span>
     </div>
+    
+    <!-- Bootstrap JS (required for modals) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
+            crossorigin="anonymous"></script>
+    
+    <!-- Load Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" 
+            onload="console.log('Chart.js loaded successfully')" 
+            onerror="handleChartJsError()"></script>
+    
+    <!-- Load simple charts implementation -->
+    <script src="js/simple-charts.js"></script>
+    
+    <!-- Load modal utilities -->
+    <script src="js/modal-utils.js"></script>
+    
+    <!-- Load Blazor last -->
     <script src="_framework/blazor.webassembly.js"></script>
 </body>
 

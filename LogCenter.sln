@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogCenter.Dashboard", "LogC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogCenter.Client", "LogCenter.Client\LogCenter.Client.csproj", "{9AB454C1-A7C8-4C9E-B842-4744596BEAA4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogCenter.TestClient", "LogCenter.TestClient\LogCenter.TestClient.csproj", "{17812B55-D31E-6175-F533-9B1EADC6DF54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,18 @@ Global
 		{9AB454C1-A7C8-4C9E-B842-4744596BEAA4}.Release|x64.Build.0 = Release|Any CPU
 		{9AB454C1-A7C8-4C9E-B842-4744596BEAA4}.Release|x86.ActiveCfg = Release|Any CPU
 		{9AB454C1-A7C8-4C9E-B842-4744596BEAA4}.Release|x86.Build.0 = Release|Any CPU
+		{17812B55-D31E-6175-F533-9B1EADC6DF54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17812B55-D31E-6175-F533-9B1EADC6DF54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17812B55-D31E-6175-F533-9B1EADC6DF54}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{17812B55-D31E-6175-F533-9B1EADC6DF54}.Debug|x64.Build.0 = Debug|Any CPU
+		{17812B55-D31E-6175-F533-9B1EADC6DF54}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{17812B55-D31E-6175-F533-9B1EADC6DF54}.Debug|x86.Build.0 = Debug|Any CPU
+		{17812B55-D31E-6175-F533-9B1EADC6DF54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17812B55-D31E-6175-F533-9B1EADC6DF54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17812B55-D31E-6175-F533-9B1EADC6DF54}.Release|x64.ActiveCfg = Release|Any CPU
+		{17812B55-D31E-6175-F533-9B1EADC6DF54}.Release|x64.Build.0 = Release|Any CPU
+		{17812B55-D31E-6175-F533-9B1EADC6DF54}.Release|x86.ActiveCfg = Release|Any CPU
+		{17812B55-D31E-6175-F533-9B1EADC6DF54}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
