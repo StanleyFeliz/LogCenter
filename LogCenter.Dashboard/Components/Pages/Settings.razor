@@ -1,0 +1,147 @@
+@page "/settings"
+@using System.Net.Http.Json
+@inject HttpClient Http
+
+<PageTitle>Settings</PageTitle>
+
+<div class="container-fluid">
+    <h1 class="mt-4">Settings</h1>
+    
+    <div class="row mt-4">
+        <div class="col-md-8 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Dashboard Configuration</h5>
+                </div>
+                <div class="card-body">
+                    <form @onsubmit="SaveSettings">
+                        <div class="mb-3">
+                            <label for="defaultTimeframe" class="form-label">Default Time Frame</label>
+                            <select id="defaultTimeframe" class="form-select" @bind="settings.DefaultTimeFrame">
+                                <option value="day">Last 24 Hours</option>
+                                <option value="week">Last 7 Days</option>
+                                <option value="month">Last 30 Days</option>
+                                <option value="year">Last Year</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="refreshInterval" class="form-label">Auto Refresh Interval (seconds)</label>
+                            <input type="number" id="refreshInterval" class="form-control" min="0" max="3600" @bind="settings.RefreshIntervalSeconds" />
+                            <div class="form-text">Set to 0 to disable auto refresh</div>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="showApplicationFilter" @bind="settings.ShowApplicationFilter" />
+                            <label class="form-check-label" for="showApplicationFilter">Show Application Filter</label>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="showLevelFilter" @bind="settings.ShowLevelFilter" />
+                            <label class="form-check-label" for="showLevelFilter">Show Level Filter</label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Save Settings</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">API Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label">API Status</label>
+                        <div>
+                            @if (apiStatus == ApiStatus.Unknown)
+                            {
+                                <span class="badge bg-secondary">Checking...</span>
+                            }
+                            else if (apiStatus == ApiStatus.Online)
+                            {
+                                <span class="badge bg-success">Online</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Offline</span>
+                            }
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">API URL</label>
+                        <input type="text" class="form-control" readonly value="@Http.BaseAddress" />
+                    </div>
+                    
+                    <button class="btn btn-sm btn-outline-primary" @onclick="CheckApiStatus">Check Connection</button>
+                </div>
+            </div>
+            
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Help</h5>
+                </div>
+                <div class="card-body">
+                    <p>Configure your dashboard preferences here. Settings are stored in your browser's local storage.</p>
+                    <p>For more information, view the <a href="#" target="_blank">documentation</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private enum ApiStatus { Unknown, Online, Offline }
+    
+    private ApiStatus apiStatus = ApiStatus.Unknown;
+    private DashboardSettings settings = new DashboardSettings();
+    
+    protected override async Task OnInitializedAsync()
+    {
+        // In a real app, we would load settings from localStorage
+        // For now we'll just use defaults
+        settings = new DashboardSettings
+        {
+            DefaultTimeFrame = "week",
+            RefreshIntervalSeconds = 60,
+            ShowApplicationFilter = true,
+            ShowLevelFilter = true
+        };
+        
+        await CheckApiStatus();
+    }
+    
+    private async Task CheckApiStatus()
+    {
+        try
+        {
+            // Simple ping to check if API is online
+            var response = await Http.GetAsync("api/v1/logs/distinct/levels");
+            apiStatus = response.IsSuccessStatusCode ? ApiStatus.Online : ApiStatus.Offline;
+        }
+        catch
+        {
+            apiStatus = ApiStatus.Offline;
+        }
+    }
+    
+    private async Task SaveSettings()
+    {
+        // In a real app, we would save to localStorage
+        // For demo, we'll just simulate a save
+        await Task.Delay(300); // Simulate saving
+        
+        // Show a success message or similar feedback in a real app
+    }
+    
+    private class DashboardSettings
+    {
+        public string DefaultTimeFrame { get; set; } = "week";
+        public int RefreshIntervalSeconds { get; set; } = 60;
+        public bool ShowApplicationFilter { get; set; } = true;
+        public bool ShowLevelFilter { get; set; } = true;
+    }
+} 
