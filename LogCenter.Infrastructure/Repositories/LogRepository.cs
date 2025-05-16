@@ -62,6 +62,9 @@ namespace LogCenter.Infrastructure.Repositories
             return await _context.LogEntries
                 .Where(l => l.Message.Contains(searchTerm) || 
                            l.Exception.Contains(searchTerm) ||
+                           l.Application.Contains(searchTerm) ||
+                           l.Environment.Contains(searchTerm) ||
+                           l.Level.Contains(searchTerm) ||
                            l.StackTrace.Contains(searchTerm))
                 .OrderByDescending(l => l.Timestamp)
                 .ToListAsync();
